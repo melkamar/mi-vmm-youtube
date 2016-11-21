@@ -14,8 +14,11 @@
         <?php
         include_once './core.php';
         echo "<pre>";
-        echo strtotime("2014-03-20T18:28:02.000Z");
-        //fetchSearchResult("prase");
+        $pokus = fetchSearchResult("prase");
+
+        foreach ($pokus as $kus){
+            echo $kus->getTitle()." - ".$kus->getLength()." s - ".$kus->getPublishedAt()."\n";
+        }
         echo "</pre>";
         
         ?>

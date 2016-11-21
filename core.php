@@ -74,7 +74,7 @@ function fetchSearchResult($searchQuery) {
     $videoQuery = http_build_query([
         'key' => $token,
         'part' => 'contentDetails,snippet,statistics,recordingDetails',
-        'fields' => 'items(id,snippet(publishedAt,channelId,title,description,thumbnails,channelTitle),contentDetails(duration,definition),statistics(viewCount,likeCount,dislikesCount),recordingDetails(location))',
+        'fields' => 'items(id,snippet(publishedAt,channelId,title,description,thumbnails,channelTitle),contentDetails(duration,definition),statistics(viewCount,likeCount,dislikeCount),recordingDetails(location))',
         'maxResults' => '50',
         'id' => $idString
     ]);

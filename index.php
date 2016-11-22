@@ -82,11 +82,13 @@
         ?>
 
         <div class="col-md-6">
+            <h4>Original results</h4>
             <p>
                 Here will be original search results...
             </p>
         </div>
         <div class="col-md-6">
+            <h4>Reranked results</h4>
             <p>
                 Here will be reranked search results...
             </p>

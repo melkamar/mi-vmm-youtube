@@ -78,7 +78,7 @@ include_once './core.php';
                     echo "<h3>Search results for: " . $query . "</h3>";
 
                     // TODO: udělat zobrazení fetchnutých věcí podle query, klidně jenom plaintext vyblejt
-                    $resultCollection = fetchSearchResult($query, false);
+                    $resultCollection = fetchSearchResult($query, false, 100);
                     ?>
                     <div class="col-md-6">
                         <h4>Original results</h4>
@@ -106,7 +106,7 @@ include_once './core.php';
                 <h3>Debugging output</h3>
                 <?php
                 echo "<pre>";
-                $pokus = fetchSearchResult($query, true);
+                $pokus = fetchSearchResult($query, true, 100);
                 echo "</pre>";
                 ?>
             </div>

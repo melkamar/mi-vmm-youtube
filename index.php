@@ -57,7 +57,8 @@
     <form action="index.php">
         <div class="form-group">
             <label for="query">Search query:</label>
-            <input type="text" class="form-control" id="query" name="query">
+            <input type="text" class="form-control" id="query" name="query"
+                   value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
         </div>
 
         <?php
@@ -69,7 +70,7 @@
 
     <div class="row row-margin">
         <?php
-        if (isset($_GET["query"]) && "" != trim($_GET["query"])){
+        if (isset($_GET["query"]) && "" != trim($_GET["query"])) {
             $query = $_GET["query"];
             echo "<h3>Search results for: " . $query . "</h3>";
 

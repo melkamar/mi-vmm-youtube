@@ -79,24 +79,28 @@ include_once './core.php';
 
                     // TODO: udělat zobrazení fetchnutých věcí podle query, klidně jenom plaintext vyblejt
                     $resultCollection = fetchSearchResult($query, false);
-                    printSimpleOutput($resultCollection);
+                    ?>
+                    <div class="col-md-6">
+                        <h4>Original results</h4>
+                        <p>
+                            <?php
+                            printSimpleOutput($resultCollection);
+                            ?>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Reranked results</h4>
+                        <p>
+                            Here will be reranked search results...
+                        </p>
+                    </div>
+                    <?php
                 } else {
                     echo "<h3>No search results</h3>";
                 }
                 ?>
 
-                <div class="col-md-6">
-                    <h4>Original results</h4>
-                    <p>
-                        Here will be original search results...
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <h4>Reranked results</h4>
-                    <p>
-                        Here will be reranked search results...
-                    </p>
-                </div>
+
             </div>
             <div class="row row-margin">
                 <h3>Debugging output</h3>

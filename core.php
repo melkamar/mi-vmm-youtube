@@ -18,16 +18,34 @@ function durationToSeconds($durationString) {
 }
 
 /**
+ * 
+ * @param \Video[] $resultCollection Collection of Video object to be printed
+ */
+function printSimpleOutput($resultCollection) {
+    // table header
+    echo "<table border=1>\n<tr><th># fetched</th><th>Title</th><th>Duration [s]</th><th># views</th><th>Author</th></tr>\n";
+    //table row for every item
+    foreach ($resultCollection as $item) {
+        echo "<tr><td>" . $item->getResultStanding() . "</td>";
+        echo "<td><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\">" . $item->getTitle() . "</a></td>";
+        echo "<td>" . $item->getLength() . "</td>";
+        echo "<td>" . $item->getViewCount() . "</td>";
+        echo "<td><a href=\"https://www.youtube.com/channel/" . $item->getChannelId() . "\">" . $item->getAuthor() . "</a></td></tr>";
+    }
+    echo "</table>\n";
+}
+
+/**
  * Fetches first x result of search of given term and parses the JSON result into collection of \Video objects which is then returned 
  * @param integer $searchQuery Term that should be inserted into search
  * @return \Video[]
  */
-function fetchSearchResult($searchQuery) {
+function fetchSearchResult($searchQuery, $debug) {
     // YouTube API key
     $token = "AIzaSyClwW3tIsqKxmFWP4l6YpEP78oCfJ9TzsM";
     // debuging info on/off
-    $debug = true;
     $outputCollection = array();
+    $videosAddedCount = 0;
 
     // parameters for search query. Must be URL encoded.
     $query = http_build_query([
@@ -54,7 +72,7 @@ function fetchSearchResult($searchQuery) {
     if ($debug) {
         echo "GET request to " . $searchUrl . " \n";
     }
-    
+
     //save all fetched IDs and make comma-separated string out of them
     $ids = array();
     $idStringTmp = "";
@@ -78,10 +96,10 @@ function fetchSearchResult($searchQuery) {
         'maxResults' => '50',
         'id' => $idString
     ]);
-    
+
     //create URL for video details request
     $videoUrl = "https://www.googleapis.com/youtube/v3/videos?" . $videoQuery;
-    
+
     //execute curl request, decode JSON response
     curl_setopt($ch, CURLOPT_URL, $videoUrl);
     $resultVideo = curl_exec($ch);
@@ -92,11 +110,11 @@ function fetchSearchResult($searchQuery) {
     }
 
     // for each video, make new \Video object and fill in parameters parsed from JSON
-    $videosAddedCount = 0;
     foreach ($jsonVideo["items"] as $item) {
         $videosAddedCount++;
         $video = new Video();
         // always present
+        $video->setResultStanding($videosAddedCount);
         $video->setId($item["id"]);
         $video->setTitle($item["snippet"]["title"]);
         $video->setDescription($item["snippet"]["description"]);
@@ -121,11 +139,11 @@ function fetchSearchResult($searchQuery) {
         // add object to the collection
         array_push($outputCollection, $video);
     }
-    
-    if($debug){
-        echo "Added ".$videosAddedCount." videos to the collection\n";
+
+    if ($debug) {
+        echo "Added " . $videosAddedCount . " videos to the collection\n";
     }
-    
+
     //return collection
     return $outputCollection;
 }

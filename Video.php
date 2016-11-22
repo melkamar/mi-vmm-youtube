@@ -4,6 +4,12 @@ class Video {
 
     /**
      *
+     * @var integer On which position was this result returned
+     */
+    private $resultStanding;
+    
+    /**
+     *
      * @var id string YouTube video id  
      */
     private $id;
@@ -81,6 +87,18 @@ class Video {
         
     }
 
+    /**
+     * As PHP may reorder the collection
+     * @return integer Position on which was this video returned
+     */
+    function getResultStanding() {
+        return $this->resultStanding;
+    }
+        
+    /**
+     * 
+     * @return integer Number of dislikes on video
+     */
     function getDislikeCount() {
         return $this->dislikeCount;
     }
@@ -177,7 +195,16 @@ class Video {
     function getChannelId() {
         return $this->channelId;
     }
+    
+    /**
+     * 
+     * @param integer $resultStanding Position on which was this video returned
+     */
+    function setResultStanding($resultStanding) {
+        $this->resultStanding = $resultStanding;
+    }
 
+    
     /**
      * Sets video ID. Usefull when creating, shouldn't be used in re-ranking phase
      * @param string $id YouTube id of the video

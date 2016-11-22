@@ -11,7 +11,7 @@ parametru.
 ##### Délka videa
 * Každé video bude obsahovat informace o délce [s]
 * Koeficient bude vypočten jako rozdíl délek a normalizován do rozsahu (0, 1), kde 1 bude odpovídat videu s největším
-  rozdílem délek: ((t<sub>req</sub> - t<sub>vid</sub>) / max(t<sub>vids</sub>))<sup>2</sup>.
+  rozdílem délek: ((t<sub>req</sub> - t<sub>vid</sub>) / (max(t<sub>vids</sub>) - t<sub>vid</sub>))<sup>2</sup>.
   
 ##### Datum nahrání videa
 * Každé video bude obsahovat datum, kdy bylo publikováno na YT. (volitelně může obsahovat i datum pořízení samotného

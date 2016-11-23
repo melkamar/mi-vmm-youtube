@@ -23,7 +23,7 @@ function durationToSeconds($durationString) {
  */
 function printSimpleOutput($resultCollection) {
     // table header
-    echo "<table border=1>\n<tr><th>#&nbsp;fetched</th><th>Title</th><th>Duration&nbsp;[s]</th><th>#&nbsp;views</th><th>Author</th></tr>\n";
+    echo "<table border=1 class=\"table-striped\">\n<tr><th>#&nbsp;fetched</th><th>Title</th><th>Duration&nbsp;[s]</th><th>#&nbsp;views</th><th>Author</th></tr>\n";
     //table row for every item
     foreach ($resultCollection as $item) {
         echo "<tr><td>" . $item->getResultStanding() . "</td>";
@@ -122,13 +122,19 @@ function fetchSearchResult($searchQuery, $debug, $videoLimit) {
             $video->setTitle($item["snippet"]["title"]);
             $video->setDescription($item["snippet"]["description"]);
             $video->setViewCount($item["statistics"]["viewCount"]);
-            $video->setLikeCount($item["statistics"]["likeCount"]);
-            $video->setLikeCount($item["statistics"]["dislikeCount"]);
             $video->setThumbnails($item["snippet"]["thumbnails"]);
             $video->setAuthor($item["snippet"]["channelTitle"]);
             $video->setChannelId($item["snippet"]["channelId"]);
 
             // might not be present
+            if (!isset($item["statistics"]["likeCount"])){
+                $video->setLikeCount(0);
+                $video->setDislikeCount(0);
+            } else {
+                $video->setLikeCount($item["statistics"]["likeCount"]);
+                $video->setDislikeCount($item["statistics"]["dislikeCount"]);
+            }
+
             if (isset($item["recordingDetails"]["location"])) {
                 $video->setLocation($item["recordingDetails"]["location"]);
             } else {

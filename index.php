@@ -1,5 +1,6 @@
 <?php
 include_once './core.php';
+set_time_limit(0);
 ?>
 <!DOCTYPE html>
 <html>
@@ -77,8 +78,7 @@ include_once './core.php';
                     $query = $_GET["query"];
                     echo "<h3>Search results for: " . $query . "</h3>";
 
-                    // TODO: udělat zobrazení fetchnutých věcí podle query, klidně jenom plaintext vyblejt
-                    $resultCollection = fetchSearchResult($query, false, 100);
+                    $resultCollection = fetchSearchResult($query, false, 500);
                     ?>
                     <div class="col-md-6">
                         <h4>Original results</h4>
@@ -106,7 +106,7 @@ include_once './core.php';
                 <h3>Debugging output</h3>
                 <?php
                 echo "<pre>";
-                $pokus = fetchSearchResult($query, true, 100);
+//                $pokus = fetchSearchResult($_GET["query"], true, 1000);
                 echo "</pre>";
                 ?>
             </div>

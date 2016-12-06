@@ -486,22 +486,17 @@ class MetaVideo
 function calcDurationDistance($video, $params)
 {
     $txt = "duration";
-    if ($params->getDurationRequested() === null ||
-        $params->getDurationWeight() === null ||
-        $params->getDurationWeight() <= 0.0
+    if (!attributeWanted(
+        $params->getDurationRequested(),
+        $params->getDurationWeight())
     ) {
-        debug_log("Skipping calculating duration distance. Not wanted.");
+        debug_log("Skipping calculating " . $txt . " distance. Not wanted.");
         return null;
     }
 
     // Calculating as per usual.
     debug_log("Calculating " . $txt . " distance.");
-    debug_log("  Requested " . $txt . ": " . $params->getDurationRequested());
-    debug_log("  Video " . $txt . ":     " . $video->getLength());
-    $distance = abs($video->getLength() - $params->getDurationRequested());
-    debug_log("    distance: " . $distance);
-
-    return $distance;
+    return computeSimpleDistance($params->getDurationRequested(), $video->getLength());
 }
 
 /**
@@ -513,9 +508,9 @@ function calcDurationDistance($video, $params)
 function calcDatePublishedDistance($video, $params)
 {
     $txt = "date published";
-    if ($params->getDatePublishedRequested() === null ||
-        $params->getDatePublishedWeight() === null ||
-        $params->getDatePublishedWeight() <= 0.0
+    if (!attributeWanted(
+        $params->getDatePublishedRequested(),
+        $params->getDatePublishedWeight())
     ) {
         debug_log("Skipping calculating " . $txt . " distance. Not wanted.");
         return null;
@@ -523,12 +518,7 @@ function calcDatePublishedDistance($video, $params)
 
     // Calculating as per usual.
     debug_log("Calculating " . $txt . " distance.");
-    debug_log("  Requested " . $txt . ": " . $params->getDatePublishedRequested());
-    debug_log("  Video " . $txt . ":     " . $video->getPublishedAt());
-    $distance = abs($video->getPublishedAt() - $params->getDatePublishedRequested());
-    debug_log("    distance: " . $distance);
-
-    return $distance;
+    return computeSimpleDistance($params->getDatePublishedRequested(), $video->getPublishedAt());
 }
 
 /**
@@ -551,6 +541,45 @@ function calcGpsDistance($video, $params)
 function calcViewsDistance($video, $params)
 {
     $txt = "views";
+    if (!attributeWanted(
+        $params->getViewsRequested(),
+        $params->getViewsWeight())
+    ) {
+        debug_log("Skipping calculating ".$txt." distance. Not wanted.");
+        return null;
+    }
+
+    // Calculating as per usual.
+    debug_log("Calculating " . $txt . " distance.");
+    return computeSimpleDistance($params->getViewsRequested(), $video->getViewCount());
+}
+
+/**
+ * Find if given attribute is wanted / needed to calculate final score.
+ * @param int|float $requestedVal Value requested by the user.
+ * @param float $weight Weight of the given value.
+ * @return bool
+ */
+function attributeWanted($requestedVal, $weight)
+{
+    if ($requestedVal === null ||
+        $weight === null ||
+        $weight <= 0.0
+    ) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function computeSimpleDistance($requested, $actual)
+{
+    debug_log("  Requested: " . $requested);
+    debug_log("  Actual:    " . $actual);
+    $distance = abs($actual - $requested);
+    debug_log("    distance: " . $distance);
+
+    return $distance;
 }
 
 /**

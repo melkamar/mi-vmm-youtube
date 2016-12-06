@@ -11,7 +11,7 @@ class RerankParams
     /**
      * @var double|null Weight of video's original standing in the results. Must be in interval <0..1>.
      */
-    private $resStandingWeight;
+    private $originalPositionWeight;
 
     /**
      * @var double Weight of video's duration. Must be in interval <0..1>.
@@ -78,7 +78,7 @@ class RerankParams
      */
     public function __construct()
     {
-        $this->resStandingWeight = 0.1;
+        $this->originalPositionWeight = 0.1;
         $this->durationWeight = null;
         $this->datePublishedWeight = null;
         $this->gpsWeight = null;
@@ -100,14 +100,14 @@ class RerankParams
     /**
      * @return float
      */
-    public function getResStandingWeight()
+    public function getOriginalPositionWeight()
     {
-        return $this->resStandingWeight;
+        return $this->originalPositionWeight;
     }
 
-    public function setResStandingWeight($resStandingWeight)
+    public function setOriginalPositionWeight($originalPositionWeight)
     {
-        $this->resStandingWeight = $resStandingWeight;
+        $this->originalPositionWeight = $originalPositionWeight;
     }
 
     /**

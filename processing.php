@@ -240,13 +240,27 @@ class MetaVideo
      */
     public function invertDistances()
     {
-        $this->originalPosition = 1 - $this->originalPosition;
-        $this->durationDistance = 1 - $this->durationDistance;
-        $this->datePublishedDistance = 1 - $this->datePublishedDistance;
-        $this->gpsDistance = 1 - $this->gpsDistance;
-        $this->viewsDistance = 1 - $this->viewsDistance;
-        $this->tudRatioDistance = 1 - $this->tudRatioDistance;
-        $this->authorNameDistance = 1 - $this->authorNameDistance;
+        if ($this->originalPosition !== null) {
+            $this->originalPosition = 1 - $this->originalPosition;
+        }
+        if ($this->durationDistance !== null) {
+            $this->durationDistance = 1 - $this->durationDistance;
+        }
+        if ($this->datePublishedDistance !== null) {
+            $this->datePublishedDistance = 1 - $this->datePublishedDistance;
+        }
+        if ($this->gpsDistance !== null) {
+            $this->gpsDistance = 1 - $this->gpsDistance;
+        }
+        if ($this->viewsDistance !== null) {
+            $this->viewsDistance = 1 - $this->viewsDistance;
+        }
+        if ($this->tudRatioDistance !== null) {
+            $this->tudRatioDistance = 1 - $this->tudRatioDistance;
+        }
+        if ($this->authorNameDistance !== null) {
+            $this->authorNameDistance = 1 - $this->authorNameDistance;
+        }
     }
 
     /**
@@ -545,13 +559,35 @@ function calcViewsDistance($video, $params)
         $params->getViewsRequested(),
         $params->getViewsWeight())
     ) {
-        debug_log("Skipping calculating ".$txt." distance. Not wanted.");
+        debug_log("Skipping calculating " . $txt . " distance. Not wanted.");
         return null;
     }
 
     // Calculating as per usual.
     debug_log("Calculating " . $txt . " distance.");
     return computeSimpleDistance($params->getViewsRequested(), $video->getViewCount());
+}
+
+/**
+ * Calculate score for a given video.
+ * @param \Video $video Video for which to calculate the score.
+ * @param \RerankParams $params Settings for reranking.
+ * @return int Distance.
+ */
+function calcTudRatioDistance($video, $params)
+{
+    return null;
+}
+
+/**
+ * Calculate score for a given video.
+ * @param \Video $video Video for which to calculate the score.
+ * @param \RerankParams $params Settings for reranking.
+ * @return int Distance.
+ */
+function calcAuthorNameDistance($video, $params)
+{
+    return null;
 }
 
 /**
@@ -580,26 +616,4 @@ function computeSimpleDistance($requested, $actual)
     debug_log("    distance: " . $distance);
 
     return $distance;
-}
-
-/**
- * Calculate score for a given video.
- * @param \Video $video Video for which to calculate the score.
- * @param \RerankParams $params Settings for reranking.
- * @return int Distance.
- */
-function calcTudRatioDistance($video, $params)
-{
-    return null;
-}
-
-/**
- * Calculate score for a given video.
- * @param \Video $video Video for which to calculate the score.
- * @param \RerankParams $params Settings for reranking.
- * @return int Distance.
- */
-function calcAuthorNameDistance($video, $params)
-{
-    return null;
 }

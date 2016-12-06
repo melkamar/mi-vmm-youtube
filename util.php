@@ -11,3 +11,7 @@ function debug_log($text)
     file_put_contents("log.log", $text . "\n", FILE_APPEND);
     echo $text."<br />";
 }
+
+function erase_log(){
+    file_put_contents("log.log", "");
+}

@@ -264,7 +264,6 @@ class MetaVideo
             $scoreInc = $this->originalPosition * $params->getOriginalPositionWeight();
             debug_log("  Adding score from ResStanding: " . $scoreInc);
             $this->score += $scoreInc;
-
         }
 
         if ($params->getDurationWeight() === null) {
@@ -275,7 +274,6 @@ class MetaVideo
             $scoreInc = $this->durationDistance * $params->getDurationWeight();
             debug_log("  Adding score from Duration: " . $scoreInc);
             $this->score += $scoreInc;
-
         }
 
         if ($params->getDatePublishedWeight() === null) {
@@ -286,7 +284,6 @@ class MetaVideo
             $scoreInc = $this->datePublishedDistance * $params->getDatePublishedWeight();
             debug_log("  Adding score from DatePublished: " . $scoreInc);
             $this->score += $scoreInc;
-
         }
 
         if ($params->getGpsWeight() === null) {
@@ -297,7 +294,6 @@ class MetaVideo
             $scoreInc = $this->gpsDistance * $params->getGpsWeight();
             debug_log("  Adding score from Gps: " . $scoreInc);
             $this->score += $scoreInc;
-
         }
 
         if ($params->getViewsWeight() === null) {
@@ -308,7 +304,6 @@ class MetaVideo
             $scoreInc = $this->viewsDistance * $params->getViewsWeight();
             debug_log("  Adding score from Views: " . $scoreInc);
             $this->score += $scoreInc;
-
         }
 
         if ($params->getTudRatioWeight() === null) {
@@ -319,7 +314,6 @@ class MetaVideo
             $scoreInc = $this->tudRatioDistance * $params->getTudRatioWeight();
             debug_log("  Adding score from TudRatio: " . $scoreInc);
             $this->score += $scoreInc;
-
         }
 
         if ($params->getAuthorNameWeight() === null) {
@@ -330,7 +324,6 @@ class MetaVideo
             $scoreInc = $this->authorNameDistance * $params->getAuthorNameWeight();
             debug_log("  Adding score from AuthorName: " . $scoreInc);
             $this->score += $scoreInc;
-
         }
 
     }
@@ -557,7 +550,7 @@ function calcGpsDistance($video, $params)
  */
 function calcViewsDistance($video, $params)
 {
-    return null;
+    $txt = "views";
 }
 
 /**

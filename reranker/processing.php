@@ -12,6 +12,10 @@ include_once 'normalizing.php';
 include_once 'classes/RerankedVideo.php';
 
 /**
+ * Main method of reranking engine.
+ *
+ * This is the only method you want to call to get the reranking to work.
+ *
  * @param \Video[] $resultCollection Array of \Video objects to be reranked.
  * @param \RerankParams $params Settings for reranking - weights, requested values.
  * @return \Video[] Reranked array of \Video objects.

@@ -74,6 +74,11 @@ class RerankParams
     private $authorNameRequested;
 
     /**
+     * @var bool Should distance from author name be case sensitive?
+     */
+    private $authorNameCaseSensitive;
+
+    /**
      * RerankParams constructor.
      */
     public function __construct()
@@ -301,6 +306,24 @@ class RerankParams
     {
         $this->authorNameRequested = $authorNameRequested;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isAuthorNameCaseSensitive()
+    {
+        return $this->authorNameCaseSensitive;
+    }
+
+    /**
+     * @param boolean $authorNameCaseSensitive
+     */
+    public function setAuthorNameCaseSensitive($authorNameCaseSensitive)
+    {
+        $this->authorNameCaseSensitive = $authorNameCaseSensitive;
+    }
+
+
 
 
 }

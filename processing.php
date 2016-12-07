@@ -344,6 +344,7 @@ class MetaVideo
         } else {
             $scoreInc = $this->authorNameDistance * $params->getAuthorNameWeight();
             debug_log("  Adding score from AuthorName: " . $scoreInc);
+            debug_log("    " . $params->getAuthorNameRequested() . " --> " . $this->video->getAuthor());
             $this->score += $scoreInc;
         }
 
@@ -612,7 +613,26 @@ function calcViewsDistance($video, $params)
  */
 function calcTudRatioDistance($video, $params)
 {
-    return null;
+    $txt = "tud ratio";
+    if (!attributeWanted(
+        $params->getTudRatioRequested(),
+        $params->getTudRatioWeight())
+    ) {
+        debug_log("Skipping calculating " . $txt . " distance. Not wanted.");
+        return null;
+    } else if (
+        $video->getLikeCount() === null ||
+        $video->getDislikeCount() === null ||
+        $video->getLikeCount() + $video->getDislikeCount() == 0
+    ) {
+        debug_log("Skipping calculating " . $txt . " distance. Likes/dislikes not present or zero.");
+        return null;
+    }
+
+    // Calculating as per usual.
+    debug_log("Calculating " . $txt . " distance.");
+    $videoRatio = $video->getLikeCount() / ($video->getLikeCount() + $video->getDislikeCount());
+    return computeSimpleDistance($params->getTudRatioRequested(), $videoRatio);
 }
 
 /**
@@ -623,7 +643,23 @@ function calcTudRatioDistance($video, $params)
  */
 function calcAuthorNameDistance($video, $params)
 {
-    return null;
+    $txt = "author name";
+    if (!attributeWanted(
+        $params->getAuthorNameRequested(),
+        $params->getAuthorNameWeight())
+    ) {
+        debug_log("Skipping calculating " . $txt . " distance. Not wanted.");
+        return null;
+    }
+
+    // Calculating as per usual.
+    debug_log("Calculating " . $txt . " distance.");
+    if ($params->isAuthorNameCaseSensitive()) {
+        return levenshtein($params->getAuthorNameRequested(), $video->getAuthor());
+    } else {
+        return levenshtein(strtolower($params->getAuthorNameRequested()), strtolower($video->getAuthor()));
+    }
+
 }
 
 /**

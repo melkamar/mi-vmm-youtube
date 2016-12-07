@@ -128,8 +128,8 @@ function fetchSearchResult($searchQuery, $debug, $videoLimit) {
 
             // might not be present
             if (!isset($item["statistics"]["likeCount"])){
-                $video->setLikeCount(0);
-                $video->setDislikeCount(0);
+                $video->setLikeCount(null);
+                $video->setDislikeCount(null);
             } else {
                 $video->setLikeCount($item["statistics"]["likeCount"]);
                 $video->setDislikeCount($item["statistics"]["dislikeCount"]);

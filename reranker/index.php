@@ -1,5 +1,7 @@
 <?php
 include_once './core.php';
+include_once 'processing.php';
+include_once 'classes/RerankParams.php';
 set_time_limit(0);
 ?>
 <!DOCTYPE html>
@@ -78,7 +80,13 @@ set_time_limit(0);
                     $query = $_GET["query"];
                     echo "<h3>Search results for: " . $query . "</h3>";
 
-                    $resultCollection = fetchSearchResult($query, false, 500);
+                    $resultCollection = fetchSearchResult($query, false, 100);
+
+                    $params = new RerankParams();
+                    $params->setTudRatioWeight(1);
+                    $params->setTudRatioRequested(0.1);
+
+                    $rerankedCollection = rerankResultCollection($resultCollection, $params);
                     ?>
                     <div class="col-md-6">
                         <h4>Original results</h4>
@@ -91,7 +99,9 @@ set_time_limit(0);
                     <div class="col-md-6">
                         <h4>Reranked results</h4>
                         <p>
-                            Here will be reranked search results...
+                            <?php
+                            printSimpleOutput($rerankedCollection);
+                            ?>
                         </p>
                     </div>
                     <?php

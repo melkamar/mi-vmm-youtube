@@ -269,6 +269,8 @@ class MetaVideo
      */
     public function recalculateScore($params)
     {
+        debug_log("  Recaulculating score for video: " . $this->video->getId());
+
         $this->score = 0;
         if ($params->getOriginalPositionWeight() === null) {
             debug_log("  Ignoring score from ResStanding, its weight is null.");
@@ -303,10 +305,15 @@ class MetaVideo
         if ($params->getGpsWeight() === null) {
             debug_log("  Ignoring score from Gps, its weight is null.");
         } else if ($this->gpsDistance === null) {
-            debug_log("  Ignoring score from Gps, its calculated distance is null.");
+//            debug_log("  Ignoring score from Gps, its calculated distance is null.");
+            debug_log(" GPS was not set for video. Replacing GPS with a const value.");
+            $gps_missing_val = 0;
+            $scoreInc = $gps_missing_val * $params->getGpsWeight();
+            $this->score += $scoreInc;
         } else {
             $scoreInc = $this->gpsDistance * $params->getGpsWeight();
             debug_log("  Adding score from Gps: " . $scoreInc);
+            debug_log("     gps " . $this->video->getLocation()["latitude"] . ", " . $this->video->getLocation()["longitude"]);
             $this->score += $scoreInc;
         }
 
@@ -543,7 +550,36 @@ function calcDatePublishedDistance($video, $params)
  */
 function calcGpsDistance($video, $params)
 {
-    return null;
+    $txt = "gps";
+    if (!attributeWanted(
+        $params->getGpsRequested(),
+        $params->getGpsWeight())
+    ) {
+        debug_log("Skipping calculating " . $txt . " distance. Not wanted.");
+        return null;
+    }
+
+    $vidLatitude = $video->getLocation()["latitude"];
+    $vidLongitude = $video->getLocation()["longitude"];
+
+    if ($vidLatitude === null || $vidLongitude === null) {
+        // GPS was not set
+        debug_log("GPS was not set for the video.");
+        return null;
+    }
+
+    $wantLatitude = $params->getGpsRequested()["latitude"];
+    $wantLongitude = $params->getGpsRequested()["longitude"];
+
+    $deltaLat = abs($vidLatitude - $wantLatitude);
+    $deltaLon = abs($vidLongitude - $wantLongitude);
+
+    $centralAngle = 2 * acos(sin($vidLatitude) * sin($wantLatitude) + cos($vidLatitude) * cos($wantLatitude) * cos($deltaLon));
+
+    $r = 6371.0088; // radius of Earth in kilometers
+    $distance = $r * $centralAngle;
+
+    return $distance;
 }
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-include_once './Video.php';
+include_once 'classes/Video.php';
 
 /**
  * 

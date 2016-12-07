@@ -9,7 +9,7 @@
 include_once 'core.php';
 include_once 'util.php';
 include_once 'normalizing.php';
-include_once 'RerankedVideo.php';
+include_once 'classes/RerankedVideo.php';
 
 /**
  * @param \Video[] $resultCollection Array of \Video objects to be reranked.

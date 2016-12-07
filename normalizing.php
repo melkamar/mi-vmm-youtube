@@ -8,7 +8,7 @@
 
 /**
  * Normalize distances of all given videos into numbers between 0 and 1.
- * @param \MetaVideo[] $metaVideos Array of \MetaVideo objects whose attributes to normalize.
+ * @param \RerankedVideo[] $metaVideos Array of \MetaVideo objects whose attributes to normalize.
  * @param \DistanceMaxims $maxims Maximum distances found.
  */
 function normalize($metaVideos, $maxims)

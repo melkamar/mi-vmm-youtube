@@ -17,51 +17,77 @@ function durationToSeconds($durationString) {
             $interval->s;
 }
 
-function secondsToDuration($seconds){
-    $sec = $seconds%60;
-    $min = (floor($seconds/60))%60;
-    $hrs = floor($seconds/3600);
+function secondsToDuration($seconds) {
+    $sec = $seconds % 60;
+    $min = (floor($seconds / 60)) % 60;
+    $hrs = floor($seconds / 3600);
     $out = "";
-    if ($hrs>0){
-        $out+=$hrs.":";
+    if ($hrs > 0) {
+        $out += $hrs . ":";
     }
-    $out=$out.str_pad($min, 2, '0', STR_PAD_LEFT).":";
-    $out=$out.str_pad($sec, 2, '0', STR_PAD_LEFT);
+    $out = $out . str_pad($min, 2, '0', STR_PAD_LEFT) . ":";
+    $out = $out . str_pad($sec, 2, '0', STR_PAD_LEFT);
     return $out;
 }
 
 /**
- * Prints table cell with iframe of video
- * @param type $id ID of a video to be showed in player
+ * 
+ * @param \Video[] $results Collection of results to be added to player
  */
-function printVideoPlayer($id){
-    echo "<td><iframe id=\"player".$id."\" type=\"text/html\" width=\"160\" height=\"90\"\n
-                src=\"http://www.youtube.com/embed/".$id."?enablejsapi=&origin=http://example.com\" frameborder=\"0\"></iframe></td>\n";
+function printVideoPlayerDescription($results, $reranked) {
+    echo "<script>\n";
+    echo "// Load the IFrame Player API code asynchronously.\n";
+    echo "var tag = document.createElement('script');\n";
+    echo "tag.src = \"https://www.youtube.com/player_api\";\n";
+    echo "var firstScriptTag = document.getElementsByTagName('script')[0];\n";
+    echo "firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);\n";
+
+    echo "// Replace the 'ytplayer' element with an <iframe> and\n// YouTube player after the API code downloads.\n";
+    echo "var player = new Array();\n";
+    echo "function onYouTubePlayerAPIReady() {\n";
+    foreach ($results as $result) {
+        echo "player.push(new YT.Player('video-" . $result->getId() . "', {
+        height: '90',
+        width: '160',
+        videoId: '" . $result->getId() . "'
+        }));\n";
+        echo "player.push(new YT.Player('video-re-" . $result->getId() . "', {
+        height: '90',
+        width: '160',
+        videoId: '" . $result->getId() . "'
+        }));\n";
+    }
+    echo "}\n</script>\n";
 }
 
 /**
  * 
  * @param \Video[] $resultCollection Collection of Video object to be printed
  */
-function printSimpleOutput($resultCollection) {
+function printSimpleOutput($resultCollection, $reranked) {
+    printVideoPlayerDescription($resultCollection, $reranked);
     // table header
     echo "<table class=\"table table-striped\">\n<thead><tr><th>#</th><th>Video</th><th>Info</th></tr></thead>\n";
     //table row for every item
     foreach ($resultCollection as $item) {
         echo "<tr><td>" . $item->getResultStanding() . "</td>\n";
-        printVideoPlayer($item->getId());
-        echo "<td><ul><li><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\" title=\"".$item->getTitle()."\">"; 
-        if (strlen($item->getTitle())>35){
-            echo substr($item->getTitle(),0,32) . "...</a></li>\n";
-        }else{
+        if ($reranked) {
+            echo "<td><div id=\"video-re-" . $item->getId() . "\"></div></td>\n";
+        } else {
+            echo "<td><div id=\"video-" . $item->getId() . "\"></div></td>\n";
+        }
+        echo "<td><ul><li><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\" title=\"" . $item->getTitle() . "\">";
+        if (strlen($item->getTitle()) > 35) {
+            echo substr($item->getTitle(), 0, 32) . "...</a></li>\n";
+        } else {
             echo $item->getTitle() . "</a></li>\n";
         }
         echo "<li>" . secondsToDuration($item->getLength()) . "</li>\n";
         echo "<li>" . $item->getViewCount() . "</li>\n";
-        echo "<li><a href=\"https://www.youtube.com/channel/" . $item->getChannelId() . "\" title=\"".$item->getAuthor()."\">"; 
-        if (strlen($item->getAuthor())>35){
-            echo substr($item->getAuthor(),0,32) . "...</a></li></ul></td></tr>\n";
-        }else{
+        echo "<li><a href=\"https://www.youtube.com/channel/" . $item->getChannelId() . "\" title=\"" . $item->getAuthor() . "\">";
+        if (strlen($item->getAuthor()) > 35) {
+            echo substr($item->getAuthor(), 0, 32) . "...</a></li></ul></td></tr>\n";
+        } else {
             echo $item->getAuthor() . "</a></li></ul></td></tr>\n";
         }
     }
@@ -160,7 +186,7 @@ function fetchSearchResult($searchQuery, $debug, $videoLimit) {
             $video->setChannelId($item["snippet"]["channelId"]);
 
             // might not be present
-            if (!isset($item["statistics"]["likeCount"])){
+            if (!isset($item["statistics"]["likeCount"])) {
                 $video->setLikeCount(null);
                 $video->setDislikeCount(null);
             } else {

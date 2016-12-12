@@ -115,7 +115,7 @@ set_time_limit(0);
                 <h4>Original results</h4>
                 <p>
                     <?php
-                    printSimpleOutput($resultCollection);
+                    printSimpleOutput($resultCollection, false);
                     ?>
                 </p>
             </div>
@@ -123,7 +123,7 @@ set_time_limit(0);
                 <h4>Reranked results</h4>
                 <p>
                     <?php
-                    printSimpleOutput($rerankedCollection);
+                    printSimpleOutput($rerankedCollection, true);
                     ?>
                 </p>
             </div>

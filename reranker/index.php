@@ -1,6 +1,7 @@
 <?php
-include_once './core.php';
+include_once 'formatting.php';
 include_once 'processing.php';
+include_once 'fetching.php';
 include_once 'classes/RerankParams.php';
 set_time_limit(0);
 ?>

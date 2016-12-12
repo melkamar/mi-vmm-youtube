@@ -17,20 +17,53 @@ function durationToSeconds($durationString) {
             $interval->s;
 }
 
+function secondsToDuration($seconds){
+    $sec = $seconds%60;
+    $min = (floor($seconds/60))%60;
+    $hrs = floor($seconds/3600);
+    $out = "";
+    if ($hrs>0){
+        $out+=$hrs.":";
+    }
+    $out=$out.str_pad($min, 2, '0', STR_PAD_LEFT).":";
+    $out=$out.str_pad($sec, 2, '0', STR_PAD_LEFT);
+    return $out;
+}
+
+/**
+ * Prints table cell with iframe of video
+ * @param type $id ID of a video to be showed in player
+ */
+function printVideoPlayer($id){
+    echo "<td><iframe id=\"player".$id."\" type=\"text/html\" width=\"160\" height=\"90\"\n
+                src=\"http://www.youtube.com/embed/".$id."?enablejsapi=&origin=http://example.com\" frameborder=\"0\"></iframe></td>\n";
+}
+
 /**
  * 
  * @param \Video[] $resultCollection Collection of Video object to be printed
  */
 function printSimpleOutput($resultCollection) {
     // table header
-    echo "<table border=1 class=\"table-striped\">\n<tr><th>#&nbsp;fetched</th><th>Title</th><th>Duration&nbsp;[s]</th><th>#&nbsp;views</th><th>Author</th></tr>\n";
+    echo "<table class=\"table table-striped\">\n<thead><tr><th>#</th><th>Video</th><th>Info</th></tr></thead>\n";
     //table row for every item
     foreach ($resultCollection as $item) {
-        echo "<tr><td>" . $item->getResultStanding() . "</td>";
-        echo "<td><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\">" . $item->getTitle() . "</a></td>";
-        echo "<td>" . $item->getLength() . "</td>";
-        echo "<td>" . $item->getViewCount() . "</td>";
-        echo "<td><a href=\"https://www.youtube.com/channel/" . $item->getChannelId() . "\">" . $item->getAuthor() . "</a></td></tr>";
+        echo "<tr><td>" . $item->getResultStanding() . "</td>\n";
+        printVideoPlayer($item->getId());
+        echo "<td><ul><li><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\" title=\"".$item->getTitle()."\">"; 
+        if (strlen($item->getTitle())>35){
+            echo substr($item->getTitle(),0,32) . "...</a></li>\n";
+        }else{
+            echo $item->getTitle() . "</a></li>\n";
+        }
+        echo "<li>" . secondsToDuration($item->getLength()) . "</li>\n";
+        echo "<li>" . $item->getViewCount() . "</li>\n";
+        echo "<li><a href=\"https://www.youtube.com/channel/" . $item->getChannelId() . "\" title=\"".$item->getAuthor()."\">"; 
+        if (strlen($item->getAuthor())>35){
+            echo substr($item->getAuthor(),0,32) . "...</a></li></ul></td></tr>\n";
+        }else{
+            echo $item->getAuthor() . "</a></li></ul></td></tr>\n";
+        }
     }
     echo "</table>\n";
 }

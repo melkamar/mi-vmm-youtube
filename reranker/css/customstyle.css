@@ -9,6 +9,10 @@ body { padding-top: 70px; }
 }
 
 table {
-    table-layout: fixed;
+   
     word-wrap: break-word;
+}
+
+li {
+  list-style-type: none;
 }

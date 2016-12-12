@@ -6,7 +6,8 @@
  * Time: 20:25
  */
 
-include_once 'core.php';
+include_once 'formatting.php';
+include_once 'fetching.php';
 include_once 'util.php';
 include_once 'normalizing.php';
 include_once 'classes/RerankedVideo.php';

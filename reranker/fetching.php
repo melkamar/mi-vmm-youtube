@@ -1,5 +1,5 @@
 <?php
-
+include_once 'classes/Video.php';
 /**
  * 
  * @param string $durationString Time interval in ISO8061 format

@@ -1,6 +1,7 @@
 <?php
 
 include_once 'classes/Video.php';
+include_once './util.php';
 
 function secondsToDuration($seconds) {
     $sec = $seconds % 60;
@@ -8,10 +9,11 @@ function secondsToDuration($seconds) {
     $hrs = floor($seconds / 3600);
     $out = "";
     if ($hrs > 0) {
-        $out += $hrs . ":";
+        $out = $out. $hrs . ":";
     }
     $out = $out . str_pad($min, 2, '0', STR_PAD_LEFT) . ":";
     $out = $out . str_pad($sec, 2, '0', STR_PAD_LEFT);
+    debug_log("---Seconds to duration---\nhrs: ".$hrs."\nmin: ".$min."\nsec: ".$sec."\noutput: ".$out."\n");
     return $out;
 }
 

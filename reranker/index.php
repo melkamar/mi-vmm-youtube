@@ -447,6 +447,7 @@ $params->setAuthorNameCaseSensitive(false);
         echo "<pre>";
         //        var_dump(scandir(getcwd()));
         //        var_dump(file_get_contents("log.log"));
+        //echo file_get_contents("log.log");
         echo "</pre>";
         ?>
     </div>

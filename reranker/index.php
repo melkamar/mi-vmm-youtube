@@ -115,7 +115,7 @@ $params->setAuthorNameCaseSensitive(false);
         </div>
 
         <div class="form-group">
-            <label for="videos-count">Number of videos</label>
+            <label for="videos-count">Number of processed videos</label>
             <input id="videos-count" data-slider-id='videos-count' type="text"
                    data-slider-min="50" data-slider-max="500"
                    data-slider-step="50"
@@ -127,7 +127,7 @@ $params->setAuthorNameCaseSensitive(false);
         </div>
 
         <div class="form-group">
-            <label for="orig-pos-weight">Original position weight:</label>
+            <label for="orig-pos-weight">Original rank weight:</label>
             <input id="orig-pos-weight" data-slider-id='orig-pos-weight' type="text"
                    data-slider-min="0" data-slider-max="100"
                    data-slider-step="1"

@@ -67,6 +67,11 @@ function calcGpsDistance($video, $params)
         return null;
     }
 
+    if ($video->getLocation() == null || !array_key_exists("latitude", $video->getLocation()) || !array_key_exists("latitude", $video->getLocation())) {
+        debug_log("GPS was not set for the video.");
+        return null;
+    }
+
     $vidLatitude = $video->getLocation()["latitude"];
     $vidLongitude = $video->getLocation()["longitude"];
 

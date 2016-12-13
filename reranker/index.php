@@ -72,6 +72,38 @@ erase_log();
     </div>
 </nav>
 
+<?php
+// Parse parameters
+
+$params = new RerankParams();
+
+$params->setOriginalPositionWeight(get_query_param($_GET, 'origposweight', 25));
+$params->setDurationWeight(get_query_param($_GET, 'durationweight', 25));
+$params->setDatePublishedWeight(get_query_param($_GET, 'dateweight', 25));
+$params->setGpsWeight(get_query_param($_GET, 'gpsweight', 0));
+$params->setViewsWeight(get_query_param($_GET, 'viewsweight', 25));
+$params->setTudRatioWeight(get_query_param($_GET, 'tudweight', 25));
+$params->setAuthorNameWeight(get_query_param($_GET, 'authorweight', 25));
+$params->setDurationRequested(intval(get_query_param($_GET, 'durationhours', null)) * 60 * 60 +
+    intval(get_query_param($_GET, 'durationminutes', null)) * 60 +
+    intval(get_query_param($_GET, 'durationseconds', null)));
+$params->setDatePublishedRequested(strtotime(get_query_param($_GET, 'date', null)));
+
+$gpsLatitude = get_query_param($_GET, 'gpslatitude', '50.104423');
+$gpsLongitude = get_query_param($_GET, 'gpslongitude', '14.388732');
+$params->setGpsRequested(
+    array(
+        "latitude" => $gpsLatitude,
+        "longitude" => $gpsLongitude
+    )
+);
+
+$params->setViewsRequested(get_query_param($_GET, 'viewscount', null));
+$params->setTudRatioRequested(get_query_param($_GET, 'tudratio', null));
+$params->setAuthorNameRequested(get_query_param($_GET, 'authorname', null));
+$params->setAuthorNameCaseSensitive(false);
+?>
+
 <div class="container">
 
     <!-- FORM INPUT -->
@@ -304,9 +336,6 @@ erase_log();
             </div>
         </div> <!-- End of Date form -->
 
-        <!--datepicker-->
-
-
         <button type="submit" class="btn btn-default">Search</button>
     </form>
 
@@ -379,27 +408,6 @@ erase_log();
             echo "<h3>Search results for: " . $query . "</h3>";
 
             $resultCollection = fetchSearchResult($query, 50);
-
-            $params = new RerankParams();
-
-
-//            $params->setOriginalPositionWeight(get_query_param($_GET, 'origposweight', null));
-//            $params->setDurationWeight();
-//            $params->setDatePublishedWeight();
-//            $params->setGpsWeight();
-//            $params->setViewsWeight();
-//            $params->setTudRatioWeight();
-//            $params->setAuthorNameWeight();
-//            $params->setDurationRequested();
-//            $params->setDatePublishedRequested();
-//            $params->setGpsRequested();
-//            $params->setViewsRequested();
-//            $params->setTudRatioRequested();
-//            $params->setAuthorNameRequested();
-//            $params->setAuthorNameCaseSensitive();
-
-//            $params->setTudRatioWeight(1);
-//            $params->setTudRatioRequested(0.1);
 
             $rerankedCollection = rerankResultCollection($resultCollection, $params);
             ?>

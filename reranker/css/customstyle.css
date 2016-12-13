@@ -26,3 +26,8 @@ table {
 .table > tbody > tr > td {
      vertical-align: middle;
 }
+
+.slider{
+    margin-left: 15px;
+    margin-right: 15px;
+}

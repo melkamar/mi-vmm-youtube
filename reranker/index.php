@@ -120,7 +120,7 @@ $params->setAuthorNameCaseSensitive(false);
                    data-slider-min="0" data-slider-max="100"
                    data-slider-step="1"
                    data-slider-value="<?php print_query_param($_GET, 'origposweight', '30') ?>"
-                   data-slider-tooltip="hide">
+                   data-slider-tooltip="hide" class="slider">
             <span id="orig-pos-weight-val-label">0</span>
             <input type="hidden" id="orig-pos-weight-val" name="origposweight"
                    value="<?php print_query_param($_GET, 'origposweight', '30') ?>">
@@ -165,7 +165,7 @@ $params->setAuthorNameCaseSensitive(false);
                                        data-slider-min="0" data-slider-max="100"
                                        data-slider-step="1"
                                        data-slider-value="<?php print_query_param($_GET, 'gpsweight', '25') ?>"
-                                       data-slider-tooltip="hide">
+                                       data-slider-tooltip="hide" class="slider">
                                 <span id="gps-weight-val-label">0</span>
                                 <input type="hidden" id="gps-weight-val" name="gpsweight"
                                        value="<?php print_query_param($_GET, 'gpsweight', '25') ?>">
@@ -210,7 +210,7 @@ $params->setAuthorNameCaseSensitive(false);
                                data-slider-min="0" data-slider-max="100"
                                data-slider-step="1"
                                data-slider-value="<?php print_query_param($_GET, 'durationweight', '25') ?>"
-                               data-slider-tooltip="hide">
+                               data-slider-tooltip="hide" class="slider">
                         <span id="duration-weight-val-label">0</span>
                         <input type="hidden" id="duration-weight-val" name="durationweight"
                                value="<?php print_query_param($_GET, 'durationweight', '25') ?>">
@@ -239,7 +239,7 @@ $params->setAuthorNameCaseSensitive(false);
                                data-slider-min="0" data-slider-max="100"
                                data-slider-step="1"
                                data-slider-value="<?php print_query_param($_GET, 'viewsweight', '25') ?>"
-                               data-slider-tooltip="hide">
+                               data-slider-tooltip="hide" class="slider">
                         <span id="views-weight-val-label">0</span>
                         <input type="hidden" id="views-weight-val" name="viewsweight"
                                value="<?php print_query_param($_GET, 'viewsweight', '25') ?>">
@@ -263,7 +263,7 @@ $params->setAuthorNameCaseSensitive(false);
                                data-slider-min="0" data-slider-max="1"
                                data-slider-step="0.01"
                                data-slider-value="<?php print_query_param($_GET, 'tudratio', '0') ?>"
-                               data-slider-tooltip="hide">
+                               data-slider-tooltip="hide" class="slider">
                         <span id="tud-ratio-val-label">0</span>
                         <input type="hidden" id="tud-ratio-val" name="tudratio"
                                value="<?php print_query_param($_GET, 'tudratio', '0') ?>">
@@ -276,7 +276,7 @@ $params->setAuthorNameCaseSensitive(false);
                                data-slider-min="0" data-slider-max="100"
                                data-slider-step="1"
                                data-slider-value="<?php print_query_param($_GET, 'tudweight', '25') ?>"
-                               data-slider-tooltip="hide">
+                               data-slider-tooltip="hide" class="slider">
                         <span id="tud-weight-val-label">0</span>
                         <input type="hidden" id="tud-weight-val" name="tudweight"
                                value="<?php print_query_param($_GET, 'tudweight', '25') ?>">
@@ -305,7 +305,7 @@ $params->setAuthorNameCaseSensitive(false);
                                data-slider-min="0" data-slider-max="100"
                                data-slider-step="1"
                                data-slider-value="<?php print_query_param($_GET, 'authorweight', '25') ?>"
-                               data-slider-tooltip="hide">
+                               data-slider-tooltip="hide" class="slider">
                         <span id="author-weight-val-label">0</span>
                         <input type="hidden" id="author-weight-val" name="authorweight"
                                value="<?php print_query_param($_GET, 'authorweight', '25') ?>">
@@ -333,7 +333,7 @@ $params->setAuthorNameCaseSensitive(false);
                                data-slider-min="0" data-slider-max="100"
                                data-slider-step="1"
                                data-slider-value="<?php print_query_param($_GET, 'dateweight', '25') ?>"
-                               data-slider-tooltip="hide">
+                               data-slider-tooltip="hide" class="slider">
                         <span id="date-weight-val-label">0</span>
                         <input type="hidden" id="date-weight-val" name="dateweight"
                                value="<?php print_query_param($_GET, 'dateweight', '25') ?>">

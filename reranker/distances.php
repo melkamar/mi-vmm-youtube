@@ -113,7 +113,7 @@ function calcViewsDistance($video, $params)
     }
 
     // Calculating as per usual.
-    debug_log("Calculating " . $txt . " distance.");
+    debug_log("Calculating " . $txt . " distance. Params: (" . $params->getViewsRequested() . ")  (" . $params->getViewsWeight());
     return computeSimpleDistance($params->getViewsRequested(), $video->getViewCount());
 }
 
@@ -184,6 +184,8 @@ function attributeWanted($requestedVal, $weight)
 {
     if ($requestedVal === null ||
         $weight === null ||
+        $requestedVal == '' ||
+        $weight == '' ||
         $weight <= 0.0
     ) {
         return false;

@@ -97,8 +97,9 @@ erase_log();
         <div class="panel panel-default form-group">
             <div class="panel-heading">
                 GPS coordinates
+                <button type="button" class="btn btn-link btn-sm" data-toggle="collapse" data-target="#GPScollapse">Show/Hide</button>
             </div>
-            <div class="panel-body">
+            <div class="panel-body collapse in" id="GPScollapse">
                 <div class="row">
                     <!-- Map -->
                     <div id="maparea" class="col-md-6">
@@ -148,8 +149,9 @@ erase_log();
         <div class="panel panel-default form-group">
             <div class="panel-heading">
                 Duration
+                <button type="button" class="btn btn-link btn-sm" data-toggle="collapse" data-target="#DurationCollapse">Show/Hide</button>
             </div>
-            <div class="panel-body">
+            <div class="panel-body collapse" id="DurationCollapse">
                 <div class="row">
                     <div class="col-md-2">
                         <label for="durationhours">Hours:</label>
@@ -189,8 +191,9 @@ erase_log();
         <div class="panel panel-default form-group">
             <div class="panel-heading">
                 Views
+                <button type="button" class="btn btn-link btn-sm" data-toggle="collapse" data-target="#ViewsCollapse">Show/Hide</button>
             </div>
-            <div class="panel-body">
+            <div class="panel-body collapse" id="ViewsCollapse">
                 <div class="row">
                     <div class="col-md-2">
                         <input type=text class="form-control"
@@ -218,8 +221,9 @@ erase_log();
         <div class="panel panel-default form-group">
             <div class="panel-heading">
                 Thumbs up/down ratio
+                <button type="button" class="btn btn-link btn-sm" data-toggle="collapse" data-target="#TUDCollapse">Show/Hide</button>
             </div>
-            <div class="panel-body">
+            <div class="panel-body collapse" id="TUDCollapse">
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="tud-ratio">Thumbs up/down ratio:</label>
@@ -253,8 +257,9 @@ erase_log();
         <div class="panel panel-default form-group">
             <div class="panel-heading">
                 Author name
+                <button type="button" class="btn btn-link btn-sm" data-toggle="collapse" data-target="#AuthorCollapse">Show/Hide</button>
             </div>
-            <div class="panel-body">
+            <div class="panel-body collapse" id="AuthorCollapse">
                 <div class="row">
                     <div class="col-md-4">
                         <input type=text class="form-control"
@@ -281,8 +286,9 @@ erase_log();
         <div class="panel panel-default form-group">
             <div class="panel-heading">
                 Date published
+                <button type="button" class="btn btn-link btn-sm" data-toggle="collapse" data-target="#DateCollapse">Show/Hide</button>
             </div>
-            <div class="panel-body">
+            <div class="panel-body collapse" id="DateCollapse">
                 <div class="row">
                     <div class="col-md-4">
                         <input type="text" id="datepicker" name="date" class="form-control"

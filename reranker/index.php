@@ -98,19 +98,19 @@ erase_log();
                         <div id="mapitems" style="width: 480px; height: 240px"></div>
                     </div>
 
-                    <!-- Buttons -->
+                    <!-- Buttons (right section) -->
                     <div class="col-md-6">
                         <div class="row">
                             <label for="longval">Longitude: </label>
                             <input type=text class="form-control"
-                                   value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['gpslongitude']) : '14.388732'; ?>"
+                                   value="<?php echo isset($_GET['gpslongitude']) ? htmlspecialchars($_GET['gpslongitude']) : '14.388732'; ?>"
                                    id="longval" name="gpslongitude">
                         </div>
 
                         <div class="row">
                             <label for="longval" class="top-buffer">Latitude: </label>
                             <input type=text class="form-control"
-                                   value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['gpslatitude']) : '50.104423'; ?>"
+                                   value="<?php echo isset($_GET['gpslatitude']) ? htmlspecialchars($_GET['gpslatitude']) : '50.104423'; ?>"
                                    id="latval" name="gpslatitude">
                         </div>
                         <div class="row">
@@ -124,16 +124,48 @@ erase_log();
                                 <input id="gps-weight" data-slider-id='gps-weight' type="text"
                                        data-slider-min="0" data-slider-max="100"
                                        data-slider-step="1" data-slider-value="25" data-slider-tooltip="hide">
-                                <!--                        <span id="ex6CurrentSliderValLabel"><span id="orig-pos-weight-val">0</span></span>-->
                                 <span id="gps-weight-val">0</span>
                             </div>
                         </div>
-                    </div>
+                    </div> <!-- end of right section -->
                 </div>
             </div>
+            <div class="row"></div>
+        </div> <!-- end of GPS panel -->
 
-            <div class="row">
-
+        <div class="panel panel-default form-group">
+            <div class="panel-heading">
+                Duration
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="durationhours">Hours:</label>
+                        <input type=text class="form-control"
+                               value="<?php echo isset($_GET['duration_hours']) ? htmlspecialchars($_GET['duration_hours']) : ''; ?>"
+                               id="durationhours" name="durationhours">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="durationminutes">Minutes:</label>
+                        <input type=text class="form-control"
+                               value="<?php echo isset($_GET['duration_minutes']) ? htmlspecialchars($_GET['duration_minutes']) : ''; ?>"
+                               id="durationminutes" name="durationminutes">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="durationseconds">Seconds:</label>
+                        <input type=text class="form-control"
+                               value="<?php echo isset($_GET['duration_seconds']) ? htmlspecialchars($_GET['duration_seconds']) : ''; ?>"
+                               id="durationseconds" name="durationseconds">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-4">
+                        <label for="duration-weight">Position weight:</label>
+                        <input id="duration-weight" data-slider-id='duration-weight' type="text"
+                               data-slider-min="0" data-slider-max="100"
+                               data-slider-step="1" data-slider-value="25" data-slider-tooltip="hide">
+                        <span id="duration-weight-val">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -154,6 +186,12 @@ erase_log();
         document.getElementById("gps-weight-val").textContent = slider.element.value + "%";
         slider.on("slide", function (slideEvt) {
             document.getElementById("gps-weight-val").textContent = slideEvt + "%";
+        });
+
+        var slider = new Slider("#duration-weight");
+        document.getElementById("duration-weight-val").textContent = slider.element.value + "%";
+        slider.on("slide", function (slideEvt) {
+            document.getElementById("duration-weight-val").textContent = slideEvt + "%";
         });
     </script>
 

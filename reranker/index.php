@@ -87,7 +87,7 @@ erase_log();
                    data-slider-value="<?php print_query_param($_GET, 'origposweight', '30') ?>"
                    data-slider-tooltip="hide">
             <span id="orig-pos-weight-val-label">0</span>
-            <input type="hidden" id="orig-pos-weight-val" name="origposweight">
+            <input type="hidden" id="orig-pos-weight-val" name="origposweight" value="<?php print_query_param($_GET, 'origposweight', '30') ?>">
         </div>
 
         <div class="panel panel-default form-group">
@@ -130,7 +130,7 @@ erase_log();
                                        data-slider-value="<?php print_query_param($_GET, 'gpsweight', '25') ?>"
                                        data-slider-tooltip="hide">
                                 <span id="gps-weight-val-label">0</span>
-                                <input type="hidden" id="gps-weight-val" name="gpsweight">
+                                <input type="hidden" id="gps-weight-val" name="gpsweight" value="<?php print_query_param($_GET, 'gpsweight', '25') ?>">
                             </div>
                         </div>
                     </div> <!-- end of right section -->
@@ -139,6 +139,7 @@ erase_log();
             <div class="row"></div>
         </div> <!-- end of GPS panel -->
 
+        <!--    Video duration form    -->
         <div class="panel panel-default form-group">
             <div class="panel-heading">
                 Duration
@@ -172,11 +173,38 @@ erase_log();
                                data-slider-value="<?php print_query_param($_GET, 'durationweight', '25') ?>"
                                data-slider-tooltip="hide">
                         <span id="duration-weight-val-label">0</span>
-                        <input type="hidden" id="duration-weight-val" name="durationweight">
+                        <input type="hidden" id="duration-weight-val" name="durationweight" value="<?php print_query_param($_GET, 'durationweight', '25') ?>">
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- End of Duration form -->
+
+        <!--    Views form    -->
+        <div class="panel panel-default form-group">
+            <div class="panel-heading">
+                Views
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <input type=text class="form-control"
+                               value="<?php print_query_param($_GET, 'viewscount', ''); ?>"
+                               id="viewscount" name="viewscount">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-4">
+                        <label for="views-weight">Views weight:</label>
+                        <input id="views-weight" data-slider-id='views-weight' type="text"
+                               data-slider-min="0" data-slider-max="100"
+                               data-slider-step="1"
+                               data-slider-value="<?php print_query_param($_GET, 'viewsweight', '25') ?>"
+                               data-slider-tooltip="hide">
+                        <span id="views-weight-val-label">0</span>
+                        <input type="hidden" id="views-weight-val" name="viewsweight" value="<?php print_query_param($_GET, 'viewsweight', '25') ?>">
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End of Duration form -->
 
         <button type="submit" class="btn btn-default">Search</button>
     </form>
@@ -205,7 +233,15 @@ erase_log();
             document.getElementById("duration-weight-val-label").textContent = slideEvt + "%";
             document.getElementById("duration-weight-val").value = slideEvt;
         });
+
+        var slider = new Slider("#views-weight");
+        document.getElementById("views-weight-val-label").textContent = slider.element.value + "%";
+        slider.on("slide", function (slideEvt) {
+            document.getElementById("views-weight-val-label").textContent = slideEvt + "%";
+            document.getElementById("views-weight-val").value = slideEvt;
+        });
     </script>
+    0
 
 
     <div class="row row-margin">

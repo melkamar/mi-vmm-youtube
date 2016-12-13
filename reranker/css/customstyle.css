@@ -13,9 +13,7 @@ table {
     word-wrap: break-word;
 }
 
-li {
-  list-style-type: none;
-}
+
 
 .vcenter {
     display: inline-block;
@@ -24,3 +22,7 @@ li {
 }
 
 .top-buffer { margin-top:20px; }
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}

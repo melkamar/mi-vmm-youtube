@@ -24,10 +24,10 @@ function secondsToDuration($seconds) {
 function printSimpleOutput($resultCollection, $reranked) {
     //printVideoPlayerDescription($resultCollection, $reranked);
     // table header
-    echo "<table class=\"table table-striped\">\n<thead><tr><th>#</th><th>Video</th><th>Info</th></tr></thead>\n";
+    echo "<table class=\"table table-striped\">\n<thead><tr><th>#</th><th>Preview</th><th>Info</th></tr></thead>\n";
     //table row for every item
     foreach ($resultCollection as $item) {
-        echo "<tr><td>" . $item->getResultStanding() . "</td>\n";
+        echo "<tr><td class=\"text-center\">" . $item->getResultStanding() . "</td>\n";
 //        if ($reranked) {
 //            echo "<td><div id=\"video-re-" . $item->getId() . "\"></div></td>\n";
 //        } else {
@@ -35,9 +35,9 @@ function printSimpleOutput($resultCollection, $reranked) {
 //        }
         echo "<td><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\" title=\"" . $item->getTitle() . "\">"
                 . "<img src=\"".$item->getThumbnails()["medium"]["url"]."\" height=\"90px\"></a></td>\n";
-        echo "<td><ul><li><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\" title=\"" . $item->getTitle() . "\">";
-        if (strlen($item->getTitle()) > 35) {
-            echo substr($item->getTitle(), 0, 32) . "...</a></li>\n";
+        echo "<td><ul class=\"list-unstyled\"><li><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\" title=\"" . $item->getTitle() . "\">";
+        if (strlen($item->getTitle()) > 45) {
+            echo substr($item->getTitle(), 0, 42) . "...</a></li>\n";
         } else {
             echo $item->getTitle() . "</a></li>\n";
         }
@@ -46,8 +46,8 @@ function printSimpleOutput($resultCollection, $reranked) {
                 . "&nbsp;&nbsp;&nbsp;<img src=\"http://3guys.cz/mi-vmm/reranker/img/like.png\" title=\"Likes count\">&nbsp;".$item->getLikeCount()
                 . "&nbsp;<img src=\"http://3guys.cz/mi-vmm/reranker/img/dislike.png\" title=\"Disikes count\">&nbsp;".$item->getDislikeCount()."</li>\n";
         echo "<li><a href=\"https://www.youtube.com/channel/" . $item->getChannelId() . "\" title=\"" . $item->getAuthor() . "\">";
-        if (strlen($item->getAuthor()) > 35) {
-            echo substr($item->getAuthor(), 0, 32) . "...</a></li></ul></td></tr>\n";
+        if (strlen($item->getAuthor()) > 45) {
+            echo substr($item->getAuthor(), 0, 42) . "...</a></li></ul></td></tr>\n";
         } else {
             echo $item->getAuthor() . "</a></li></ul></td></tr>\n";
         }

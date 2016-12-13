@@ -19,3 +19,7 @@ function erase_log(){
 function print_query_param($params, $field, $default){
    echo isset($params[$field]) ? htmlspecialchars($params[$field]) : $default;
 }
+
+function get_query_param($params, $field, $default){
+    return isset($params[$field]) ? htmlspecialchars($params[$field]) : $default;
+}

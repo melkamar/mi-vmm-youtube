@@ -26,7 +26,7 @@ erase_log();
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    
+
     <!-- jQuery CSS -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -276,9 +276,36 @@ erase_log();
                 </div>
             </div>
         </div> <!-- End of Author form -->
-        
+
+        <!--    Date form    -->
+        <div class="panel panel-default form-group">
+            <div class="panel-heading">
+                Date published
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" id="datepicker" name="date" class="form-control"
+                               value="<?php print_query_param($_GET, 'date', ''); ?>">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-4">
+                        <label for="date-weight">Date published weight:</label>
+                        <input id="date-weight" data-slider-id='date-weight' type="text"
+                               data-slider-min="0" data-slider-max="100"
+                               data-slider-step="1"
+                               data-slider-value="<?php print_query_param($_GET, 'dateweight', '25') ?>"
+                               data-slider-tooltip="hide">
+                        <span id="date-weight-val-label">0</span>
+                        <input type="hidden" id="date-weight-val" name="dateweight"
+                               value="<?php print_query_param($_GET, 'dateweight', '25') ?>">
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End of Date form -->
+
         <!--datepicker-->
-        <input type="text" id="datepicker">
+
 
         <button type="submit" class="btn btn-default">Search</button>
     </form>
@@ -335,6 +362,13 @@ erase_log();
             document.getElementById("author-weight-val-label").textContent = slideEvt + "%";
             document.getElementById("author-weight-val").value = slideEvt;
         });
+
+        var slider = new Slider("#date-weight");
+        document.getElementById("date-weight-val-label").textContent = slider.element.value + "%";
+        slider.on("slide", function (slideEvt) {
+            document.getElementById("date-weight-val-label").textContent = slideEvt + "%";
+            document.getElementById("date-weight-val").value = slideEvt;
+        });
     </script>
 
 
@@ -347,8 +381,25 @@ erase_log();
             $resultCollection = fetchSearchResult($query, 50);
 
             $params = new RerankParams();
-            $params->setTudRatioWeight(1);
-            $params->setTudRatioRequested(0.1);
+
+
+//            $params->setOriginalPositionWeight(get_query_param($_GET, 'origposweight', null));
+//            $params->setDurationWeight();
+//            $params->setDatePublishedWeight();
+//            $params->setGpsWeight();
+//            $params->setViewsWeight();
+//            $params->setTudRatioWeight();
+//            $params->setAuthorNameWeight();
+//            $params->setDurationRequested();
+//            $params->setDatePublishedRequested();
+//            $params->setGpsRequested();
+//            $params->setViewsRequested();
+//            $params->setTudRatioRequested();
+//            $params->setAuthorNameRequested();
+//            $params->setAuthorNameCaseSensitive();
+
+//            $params->setTudRatioWeight(1);
+//            $params->setTudRatioRequested(0.1);
 
             $rerankedCollection = rerankResultCollection($resultCollection, $params);
             ?>
@@ -397,11 +448,11 @@ erase_log();
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#datepicker").datepicker({dateFormat: "dd.mm.yy"});
+    });
+</script>
 </body>
 </html>

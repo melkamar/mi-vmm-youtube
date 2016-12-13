@@ -87,7 +87,8 @@ erase_log();
                    data-slider-value="<?php print_query_param($_GET, 'origposweight', '30') ?>"
                    data-slider-tooltip="hide">
             <span id="orig-pos-weight-val-label">0</span>
-            <input type="hidden" id="orig-pos-weight-val" name="origposweight" value="<?php print_query_param($_GET, 'origposweight', '30') ?>">
+            <input type="hidden" id="orig-pos-weight-val" name="origposweight"
+                   value="<?php print_query_param($_GET, 'origposweight', '30') ?>">
         </div>
 
         <div class="panel panel-default form-group">
@@ -130,7 +131,8 @@ erase_log();
                                        data-slider-value="<?php print_query_param($_GET, 'gpsweight', '25') ?>"
                                        data-slider-tooltip="hide">
                                 <span id="gps-weight-val-label">0</span>
-                                <input type="hidden" id="gps-weight-val" name="gpsweight" value="<?php print_query_param($_GET, 'gpsweight', '25') ?>">
+                                <input type="hidden" id="gps-weight-val" name="gpsweight"
+                                       value="<?php print_query_param($_GET, 'gpsweight', '25') ?>">
                             </div>
                         </div>
                     </div> <!-- end of right section -->
@@ -173,7 +175,8 @@ erase_log();
                                data-slider-value="<?php print_query_param($_GET, 'durationweight', '25') ?>"
                                data-slider-tooltip="hide">
                         <span id="duration-weight-val-label">0</span>
-                        <input type="hidden" id="duration-weight-val" name="durationweight" value="<?php print_query_param($_GET, 'durationweight', '25') ?>">
+                        <input type="hidden" id="duration-weight-val" name="durationweight"
+                               value="<?php print_query_param($_GET, 'durationweight', '25') ?>">
                     </div>
                 </div>
             </div>
@@ -200,11 +203,48 @@ erase_log();
                                data-slider-value="<?php print_query_param($_GET, 'viewsweight', '25') ?>"
                                data-slider-tooltip="hide">
                         <span id="views-weight-val-label">0</span>
-                        <input type="hidden" id="views-weight-val" name="viewsweight" value="<?php print_query_param($_GET, 'viewsweight', '25') ?>">
+                        <input type="hidden" id="views-weight-val" name="viewsweight"
+                               value="<?php print_query_param($_GET, 'viewsweight', '25') ?>">
                     </div>
                 </div>
             </div>
-        </div> <!-- End of Duration form -->
+        </div> <!-- End of Views form -->
+
+
+        <!--    TUD form    -->
+        <div class="panel panel-default form-group">
+            <div class="panel-heading">
+                Thumbs up/down ratio
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="tud-ratio">Thumbs up/down ratio:</label>
+                        <input id="tud-ratio" data-slider-id='tud-ratio' type="text"
+                               data-slider-min="0" data-slider-max="1"
+                               data-slider-step="0.01"
+                               data-slider-value="<?php print_query_param($_GET, 'tudratio', '0') ?>"
+                               data-slider-tooltip="hide">
+                        <span id="tud-ratio-val-label">0</span>
+                        <input type="hidden" id="tud-ratio-val" name="tudratio"
+                               value="<?php print_query_param($_GET, 'tudratio', '0') ?>">
+                    </div>
+
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-4">
+                        <label for="tud-weight">Thumbs up/down weight:</label>
+                        <input id="tud-weight" data-slider-id='tud-weight' type="text"
+                               data-slider-min="0" data-slider-max="100"
+                               data-slider-step="1"
+                               data-slider-value="<?php print_query_param($_GET, 'tudweight', '25') ?>"
+                               data-slider-tooltip="hide">
+                        <span id="tud-weight-val-label">0</span>
+                        <input type="hidden" id="tud-weight-val" name="tudweight"
+                               value="<?php print_query_param($_GET, 'tudweight', '25') ?>">
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End of TUD form -->
 
         <button type="submit" class="btn btn-default">Search</button>
     </form>
@@ -240,8 +280,21 @@ erase_log();
             document.getElementById("views-weight-val-label").textContent = slideEvt + "%";
             document.getElementById("views-weight-val").value = slideEvt;
         });
+
+        // Thumbs UP/DOWN
+        var slider = new Slider("#tud-ratio");
+        document.getElementById("tud-ratio-val-label").textContent = slider.element.value + "%";
+        slider.on("slide", function (slideEvt) {
+            document.getElementById("tud-ratio-val-label").textContent = slideEvt + "%";
+            document.getElementById("tud-ratio-val").value = slideEvt;
+        });
+        var slider = new Slider("#tud-weight");
+        document.getElementById("tud-weight-val-label").textContent = slider.element.value + "%";
+        slider.on("slide", function (slideEvt) {
+            document.getElementById("tud-weight-val-label").textContent = slideEvt + "%";
+            document.getElementById("tud-weight-val").value = slideEvt;
+        });
     </script>
-    0
 
 
     <div class="row row-margin">

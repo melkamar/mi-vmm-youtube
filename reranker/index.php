@@ -246,6 +246,34 @@ erase_log();
             </div>
         </div> <!-- End of TUD form -->
 
+        <!--    Author form    -->
+        <div class="panel panel-default form-group">
+            <div class="panel-heading">
+                Author name
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type=text class="form-control"
+                               value="<?php print_query_param($_GET, 'authorname', ''); ?>"
+                               id="authorname" name="authorname">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-4">
+                        <label for="author-weight">Author name weight:</label>
+                        <input id="author-weight" data-slider-id='author-weight' type="text"
+                               data-slider-min="0" data-slider-max="100"
+                               data-slider-step="1"
+                               data-slider-value="<?php print_query_param($_GET, 'authorweight', '25') ?>"
+                               data-slider-tooltip="hide">
+                        <span id="author-weight-val-label">0</span>
+                        <input type="hidden" id="author-weight-val" name="authorweight"
+                               value="<?php print_query_param($_GET, 'authorweight', '25') ?>">
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End of Author form -->
+
         <button type="submit" class="btn btn-default">Search</button>
     </form>
 
@@ -293,6 +321,13 @@ erase_log();
         slider.on("slide", function (slideEvt) {
             document.getElementById("tud-weight-val-label").textContent = slideEvt + "%";
             document.getElementById("tud-weight-val").value = slideEvt;
+        });
+
+        var slider = new Slider("#author-weight");
+        document.getElementById("author-weight-val-label").textContent = slider.element.value + "%";
+        slider.on("slide", function (slideEvt) {
+            document.getElementById("author-weight-val-label").textContent = slideEvt + "%";
+            document.getElementById("author-weight-val").value = slideEvt;
         });
     </script>
 

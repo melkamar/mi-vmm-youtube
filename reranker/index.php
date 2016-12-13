@@ -419,19 +419,19 @@ $params->setAuthorNameCaseSensitive(false);
             ?>
             <div class="col-md-6">
                 <h4>Original results</h4>
-                <p>
+               
                     <?php
                     printSimpleOutput($resultCollection, false);
                     ?>
-                </p>
+                
             </div>
             <div class="col-md-6">
                 <h4>Reranked results</h4>
-                <p>
+                
                     <?php
                     printSimpleOutput($rerankedCollection, true);
                     ?>
-                </p>
+                
             </div>
             <?php
         } else {

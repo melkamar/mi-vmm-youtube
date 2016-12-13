@@ -36,7 +36,7 @@ function printSimpleOutput($resultCollection, $reranked) {
 //            echo "<td><div id=\"video-" . $item->getId() . "\"></div></td>\n";
 //        }
         echo "<td><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\" title=\"" . $item->getTitle() . "\">"
-                . "<img src=\"".$item->getThumbnails()["medium"]["url"]."\" height=\"90px\"></a></td>\n";
+                . "<img src=\"".$item->getThumbnails()["medium"]["url"]."\" height=\"90\" alt=\"Video preview\"></a></td>\n";
         echo "<td><ul class=\"list-unstyled\"><li><a href=\"https://www.youtube.com/watch?v=" . $item->getId() . "\" title=\"" . $item->getTitle() . "\">";
         if (strlen($item->getTitle()) > 45) {
             echo substr($item->getTitle(), 0, 42) . "...</a></li>\n";
@@ -45,8 +45,8 @@ function printSimpleOutput($resultCollection, $reranked) {
         }
         echo "<li>" . secondsToDuration($item->getLength()) . "&nbsp;|&nbsp;".date("j.n.Y",$item->getPublishedAt())."</li>\n";
         echo "<li>Views:&nbsp;" . $item->getViewCount() 
-                . "&nbsp;&nbsp;&nbsp;<img src=\"http://3guys.cz/mi-vmm/reranker/img/like.png\" title=\"Likes count\">&nbsp;".$item->getLikeCount()
-                . "&nbsp;<img src=\"http://3guys.cz/mi-vmm/reranker/img/dislike.png\" title=\"Disikes count\">&nbsp;".$item->getDislikeCount()."</li>\n";
+                . "&nbsp;&nbsp;&nbsp;<img src=\"http://3guys.cz/mi-vmm/reranker/img/like.png\" title=\"Likes count\" alt=\"Likes count\">&nbsp;".$item->getLikeCount()
+                . "&nbsp;<img src=\"http://3guys.cz/mi-vmm/reranker/img/dislike.png\" title=\"Disikes count\" alt=\"Dislikes count\">&nbsp;".$item->getDislikeCount()."</li>\n";
         echo "<li><a href=\"https://www.youtube.com/channel/" . $item->getChannelId() . "\" title=\"" . $item->getAuthor() . "\">";
         if (strlen($item->getAuthor()) > 45) {
             echo substr($item->getAuthor(), 0, 42) . "...</a></li></ul></td></tr>\n";

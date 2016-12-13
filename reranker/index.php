@@ -27,9 +27,14 @@ set_time_limit(0);
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+    <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"-->
+    <!--            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"-->
+    <!--            crossorigin="anonymous"></script>-->
+
+    <!--    Google Map Picker -->
+    <script src="js/if_gmap.js"></script>
+    <script type="text/javascript"
+            src="http://maps.google.com/maps/api/js?key=AIzaSyBA7vgbuOrs7GJl2gIHvmttVEtT5u6PG1w&sensor=false"></script>
 
     <!--    Slider -->
     <script src="js/bootstrap-slider.js"></script>
@@ -37,7 +42,7 @@ set_time_limit(0);
 
     <link rel="stylesheet" type="text/css" href="css/customstyle.css">
 </head>
-<body>
+<body onload="if_gmap_init();">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -81,9 +86,55 @@ set_time_limit(0);
             <span id="ex6CurrentSliderValLabel"><span id="orig-pos-weight-val">0</span></span>
         </div>
 
-        <?php
-        // TODO: radiobuttony a šoupátka pro další parametry (délka videa, datum atd.)
-        ?>
+        <div class="panel panel-default form-group">
+            <div class="panel-heading">
+                GPS coordinates
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <!-- Map -->
+                    <div id="maparea" class="col-md-6">
+                        <div id="mapitems" style="width: 480px; height: 240px"></div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="col-md-6">
+                        <div class="row">
+                            <label for="longval">Longitude: </label>
+                            <input type=text class="form-control"
+                                   value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['gpslongitude']) : '14.388732'; ?>"
+                                   id="longval" name="gpslongitude">
+                        </div>
+
+                        <div class="row">
+                            <label for="longval" class="top-buffer">Latitude: </label>
+                            <input type=text class="form-control"
+                                   value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['gpslatitude']) : '50.104423'; ?>"
+                                   id="latval" name="gpslatitude">
+                        </div>
+                        <div class="row">
+                            <input type=button class="btn btn-default top-buffer" value="Jump to location"
+                                   onclick="if_gmap_loadpicker();">
+                        </div>
+
+                        <div class="row top-buffer">
+                            <div class="form-group">
+                                <label for="gps-weight">Position weight:</label>
+                                <input id="gps-weight" data-slider-id='gps-weight' type="text"
+                                       data-slider-min="0" data-slider-max="100"
+                                       data-slider-step="1" data-slider-value="25" data-slider-tooltip="hide">
+                                <!--                        <span id="ex6CurrentSliderValLabel"><span id="orig-pos-weight-val">0</span></span>-->
+                                <span id="gps-weight-val">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+            </div>
+        </div>
 
         <button type="submit" class="btn btn-default">Search</button>
     </form>
@@ -96,7 +147,15 @@ set_time_limit(0);
         slider.on("slide", function (slideEvt) {
             document.getElementById("orig-pos-weight-val").textContent = slideEvt + "%";
         });
+
+
+        var slider = new Slider("#gps-weight");
+        document.getElementById("gps-weight-val").textContent = slider.element.value + "%";
+        slider.on("slide", function (slideEvt) {
+            document.getElementById("gps-weight-val").textContent = slideEvt + "%";
+        });
     </script>
+
 
     <div class="row row-margin">
         <?php
@@ -104,7 +163,7 @@ set_time_limit(0);
             $query = $_GET["query"];
             echo "<h3>Search results for: " . $query . "</h3>";
 
-            $resultCollection = fetchSearchResult($query, false, 100);
+            $resultCollection = fetchSearchResult($query, false, 50);
 
             $params = new RerankParams();
             $params->setTudRatioWeight(1);
@@ -141,6 +200,7 @@ set_time_limit(0);
         <?php
         echo "<pre>";
         //                $pokus = fetchSearchResult($_GET["query"], true, 1000);
+        //        echo file_get_contents("log.log");
         echo "</pre>";
         ?>
     </div>
@@ -151,7 +211,7 @@ set_time_limit(0);
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="../../dist/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>

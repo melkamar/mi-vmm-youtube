@@ -16,3 +16,11 @@ table {
 li {
   list-style-type: none;
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.top-buffer { margin-top:20px; }

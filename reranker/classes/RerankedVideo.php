@@ -9,6 +9,7 @@
 class RerankedVideo
 {
     private $video;
+    private $nonNormalizedOriginalPosition;
     private $originalPosition;
     private $durationDistance;
     private $datePublishedDistance;
@@ -26,6 +27,7 @@ class RerankedVideo
     {
         $this->video = $video;
         $this->originalPosition = $video->getResultStanding();
+        $this->nonNormalizedOriginalPosition = $this->originalPosition;
 
         debug_log(" New MetaVideo, position: " . $this->originalPosition);
     }
@@ -151,7 +153,13 @@ class RerankedVideo
      */
     static function compareMetaVideos($metaVideoA, $metaVideoB)
     {
-        return sign($metaVideoB->getScore() - $metaVideoA->getScore());
+        $score = sign($metaVideoB->getScore() - $metaVideoA->getScore());
+        if ($score != 0) {
+            return $score;
+        } else {
+            debug_log("Original score == 0, will return based on positions: " . ($metaVideoB->getOriginalPosition() - $metaVideoA->getOriginalPosition()));
+            return $metaVideoA->getNonNormalizedOriginalPosition() - $metaVideoB->getNonNormalizedOriginalPosition();
+        }
     }
 
 
@@ -299,6 +307,16 @@ class RerankedVideo
     {
         $this->authorNameDistance = $authorNameDistance;
     }
+
+    /**
+     * @return int
+     */
+    public function getNonNormalizedOriginalPosition()
+    {
+        return $this->nonNormalizedOriginalPosition;
+    }
+
+
 
 
 }

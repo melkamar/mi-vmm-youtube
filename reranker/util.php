@@ -15,3 +15,7 @@ function debug_log($text)
 function erase_log(){
     file_put_contents("log.log", "");
 }
+
+function print_query_param($params, $field, $default){
+   echo isset($params[$field]) ? htmlspecialchars($params[$field]) : $default;
+}

@@ -3,7 +3,8 @@ include_once 'formatting.php';
 include_once 'processing.php';
 include_once 'fetching.php';
 include_once 'classes/RerankParams.php';
-set_time_limit(0);
+erase_log();
+//set_time_limit(0);
 ?>
 <!DOCTYPE html>
 <html>
@@ -163,7 +164,7 @@ set_time_limit(0);
             $query = $_GET["query"];
             echo "<h3>Search results for: " . $query . "</h3>";
 
-            $resultCollection = fetchSearchResult($query, false, 50);
+            $resultCollection = fetchSearchResult($query, 50);
 
             $params = new RerankParams();
             $params->setTudRatioWeight(1);
@@ -199,8 +200,7 @@ set_time_limit(0);
         <h3>Debugging output</h3>
         <?php
         echo "<pre>";
-        //                $pokus = fetchSearchResult($_GET["query"], true, 1000);
-        //        echo file_get_contents("log.log");
+                echo file_get_contents("log.log");
         echo "</pre>";
         ?>
     </div>
@@ -210,6 +210,7 @@ set_time_limit(0);
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

@@ -1,5 +1,8 @@
 <?php
+
 include_once 'classes/Video.php';
+include_once './util.php';
+
 /**
  * 
  * @param string $durationString Time interval in ISO8061 format
@@ -15,13 +18,12 @@ function durationToSeconds($durationString) {
             $interval->s;
 }
 
-
 /**
  * Fetches first x result of search of given term and parses the JSON result into collection of \Video objects which is then returned 
  * @param integer $searchQuery Term that should be inserted into search
  * @return \Video[]
  */
-function fetchSearchResult($searchQuery, $debug, $videoLimit) {
+function fetchSearchResult($searchQuery, $videoLimit) {
     // YouTube API key
     $token = "AIzaSyClwW3tIsqKxmFWP4l6YpEP78oCfJ9TzsM";
     $outputCollection = array();
@@ -53,9 +55,9 @@ function fetchSearchResult($searchQuery, $debug, $videoLimit) {
         //execute curl request, decode response from JSON
         $result = curl_exec($ch);
         $json = json_decode($result, true);
-        if ($debug) {
-            echo "GET request to " . $searchUrl . " \n";
-        }
+
+        debug_log("GET request to " . $searchUrl . " \n");
+
 
         //save all fetched IDs and make comma-separated string out of them
         $ids = array();
@@ -67,10 +69,8 @@ function fetchSearchResult($searchQuery, $debug, $videoLimit) {
         //remove first comma
         $idString = substr($idStringTmp, 1);
 
-        if ($debug) {
-            echo sizeof($ids) . " video ids fetched.\n";
-            echo "idString = \"" . $idString . "\"\n";
-        }
+        debug_log(sizeof($ids) . " video ids fetched.\n");
+        debug_log("idString = \"" . $idString . "\"\n");
 
         // parameters for video details query
         $videoQuery = http_build_query([
@@ -89,9 +89,9 @@ function fetchSearchResult($searchQuery, $debug, $videoLimit) {
         $resultVideo = curl_exec($ch);
         $jsonVideo = json_decode($resultVideo, true);
 
-        if ($debug) {
-            echo "GET request to " . $videoUrl . " \n";
-        }
+
+        debug_log("GET request to " . $videoUrl . " \n");
+
 
         // for each video, make new \Video object and fill in parameters parsed from JSON
         foreach ($jsonVideo["items"] as $item) {
@@ -130,9 +130,9 @@ function fetchSearchResult($searchQuery, $debug, $videoLimit) {
             array_push($outputCollection, $video);
         }
 
-        if ($debug) {
-            echo "Added " . $videosAddedCount . " videos to the collection\n";
-        }
+
+        debug_log("Added " . $videosAddedCount . " videos to the collection\n");
+
 
         if (isset($json["nextPageToken"])) {
             $nextPageToken = $json["nextPageToken"];
@@ -144,4 +144,3 @@ function fetchSearchResult($searchQuery, $debug, $videoLimit) {
     //return collection
     return $outputCollection;
 }
-
